@@ -1,22 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cartoon Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --accent-color: #38bdf8;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.15), transparent 25%);
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            max-width: 800px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #38bdf8, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 2rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            animation: fadeInUp 1s ease-out forwards;
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
+            padding: 2rem 1rem 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+
+        .overlay span {
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            color: var(--accent-color);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .gallery-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <div>
-        I like to watch Cartoon, these are the some images of cartoon.
-    </div>
-    <div>
-        <img src="./images/1.jpg" alt="This is a cartoon image">
-        <img src="./images/2.jpg" alt="This is a cartoon image">
-        <img src="./images/3.jpg" alt="This is a cartoon image">
-        <img src="./images/4.jpg" alt="This is a cartoon image">
-    </div>
-</body>
+    <header>
+        <h1>Cartoon Universe</h1>
+        <p class="subtitle">Step into a world of imagination and nostalgia. Explore our curated collection of vibrant cartoon moments beautifully preserved in pixels.</p>
+    </header>
 
+    <main class="gallery-container">
+        <div class="gallery-item">
+            <img src="./images/1.jpg" alt="Cartoon image 1">
+            <div class="overlay">
+                <span>Moment One</span>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <img src="./images/2.jpg" alt="Cartoon image 2">
+            <div class="overlay">
+                <span>Moment Two</span>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <img src="./images/3.jpg" alt="Cartoon image 3">
+            <div class="overlay">
+                <span>Moment Three</span>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <img src="./images/4.jpg" alt="Cartoon image 4">
+            <div class="overlay">
+                <span>Moment Four</span>
+            </div>
+        </div>
+    </main>
+</body>
 </html>
